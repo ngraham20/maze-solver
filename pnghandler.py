@@ -1,4 +1,4 @@
-from PIL import Image
+from PIL import Image, ImageDraw
 from typing import Tuple
 
 
@@ -6,20 +6,19 @@ class PngHandler(object):
 
     def __init__(self, size):
         self.size = size
-        self.pixel_matrix = Image.new('RGB', size)
+        self.pixel_matrix = Image.new('RGB', (size, size))
+        self.draw = ImageDraw.Draw(self.pixel_matrix, "RGB")
 
     @staticmethod
     def import_png(png: str) -> Image.Image:
         return Image.open(png).convert('RGB')
 
-    @staticmethod
-    def get_rgb(x: int, y: int, image: Image.Image) -> Tuple:
-        return tuple(image.getpixel((x, y)))
-
     def setup_grid(self):
-        for x in range(self.size[0]):  # loop through row
-            for y in range(self.size[1]):  # loop through column
-                print("x: ", x, "y: ", y, self.get_rgb(x, y, self.pixel_matrix))
+        for y in range(self.size):  # loop through row
+            if y % 2 == 1:
+                for x in range(self.size):
+                    if x % 2 == 1:
+                        self.draw.point((x, y), (255, 255, 255))
 
     def show(self):
         self.pixel_matrix.show()
