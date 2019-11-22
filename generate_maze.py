@@ -1,19 +1,46 @@
 from maze import Maze
+import time
+import random
 
 
 def main():
-    maze = maze(21)
+    size = 2001
+    maze = Maze(size)
     maze.setup_grid()
 
     matrix = maze.matrix
 
-    # maze.connect(matrix[1][1], matrix[1][3])
-    # maze.connect(matrix[3][5], matrix[3][7])
-    # maze.connect(matrix[5][5], matrix[7][5])
-    # maze.connect(matrix[1][9], matrix[3][9])
+    start_time = time.time()
 
+    the_stack = [(1, 1)]
+    matrix[1][1].visited = True
 
+    while the_stack:
+        x, y = the_stack.pop()
+        pool = []
+        if y - 2 > 0 and not matrix[x][y - 2].visited:  # check north
+            pool.append((x, y - 2))
 
+        if y + 2 < len(matrix) and not matrix[x][y + 2].visited:  # check south
+            pool.append((x, y + 2))
+
+        if x - 2 > 0 and not matrix[x - 2][y].visited:  # check east
+            pool.append((x - 2, y))
+
+        if x + 2 < len(matrix) and not matrix[x + 2][y].visited:  # check west
+            pool.append((x + 2, y))
+
+        if len(pool) > 0:
+            the_stack.append((x, y))
+            next_node = random.choice(pool)
+            maze.connect(matrix[x][y], matrix[next_node[0]][next_node[1]])
+            matrix[next_node[0]][next_node[1]].visited = True
+            the_stack.append(next_node)
+
+    duration = time.time() - start_time
+    print("RECURSIVE BACKTRACKER: %s x %s" % (size, size))
+    print("--- %s seconds ---" % duration)
+    
     maze.image.save("pngs/test.png", "PNG")
 
 
