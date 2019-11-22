@@ -9,6 +9,8 @@ class Maze(object):
 
     def __init__(self, size: int):
         self.size = size
+        if self.size % 2 == 0:
+            self.size += 1
         self.image = Image.new('RGB', (size, size))
         self.draw = ImageDraw.Draw(self.image, "RGB")
 
