@@ -11,6 +11,10 @@
 
 venv
 
+__pycache__
+
+pngs
+
 # Generated files
 .idea/**/contentModel.xml
 
