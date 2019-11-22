@@ -11,10 +11,10 @@ class Maze(object):
         self.size = size
         if self.size % 2 == 0:
             self.size += 1
-        self.image = Image.new('RGB', (size, size))
+        self.image = Image.new('RGB', (self.size, self.size))
         self.draw = ImageDraw.Draw(self.image, "RGB")
 
-        self.matrix = [[None] * size for _ in range(size)]
+        self.matrix = [[None] * self.size for _ in range(self.size)]
 
     @staticmethod
     def import_png(png: str) -> Image.Image:
