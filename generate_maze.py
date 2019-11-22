@@ -4,7 +4,7 @@ import random
 
 
 def main():
-    size = 2001
+    size = 2000
     maze = Maze(size)
     maze.setup_grid()
 
@@ -38,7 +38,7 @@ def main():
             the_stack.append(next_node)
 
     duration = time.time() - start_time
-    print("RECURSIVE BACKTRACKER: %s x %s" % (size, size))
+    print("RECURSIVE BACKTRACKER: %s x %s" % (maze.size, maze.size))
     print("--- %s seconds ---" % duration)
     
     maze.image.save("pngs/test.png", "PNG")
