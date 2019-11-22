@@ -1,6 +1,13 @@
-# maze-solver
-A project to look at various ways to solve a maze
+# Maze Algorithms
 
-Python or something will be used
+## Maze Generation
 
-Are you getting emailed about my pr?
+- Recursive Backtracking Algorithm  
+	This algorithm is the "base case," which will be used to compare against more elegant algorithms.
+
+- Kruskal's Algorithm
+- Prim's Algorithm
+## Maze Solving
+
+- Recursive Backtracking Algorithm
+
