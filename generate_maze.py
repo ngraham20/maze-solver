@@ -2,7 +2,7 @@ from recursivebacktracker import RecursiveBacktracker
 
 
 def main():
-    rb = RecursiveBacktracker(25)
+    rb = RecursiveBacktracker(100)
     rb.generate()
     rb.print_duration()
     rb.save_png()
