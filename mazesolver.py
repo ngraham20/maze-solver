@@ -11,6 +11,8 @@ class MazeSolver:
 
         self.solution = None
 
+        self.name = "DEFAULT"
+
     def import_png(self, png: str):
         self.maze.import_png(png)
         self.matrix = self.maze.matrix
@@ -19,7 +21,8 @@ class MazeSolver:
         pass
 
     def save_png(self, image):
-        pass
+        image.save("pngs/" + str(self.maze.size) + "x" + str(self.maze.size) + "-" + self.name + "-" +
+                   str(float("%.5f" % self.duration)) + "s.png", "PNG")
 
     def save_solution(self, solution):
         size = len(solution)
@@ -32,4 +35,3 @@ class MazeSolver:
             self.maze.draw.point(solution[section + index], (int(255 - increment * index), 0, 255))
 
         self.save_png(self.maze.image)
-

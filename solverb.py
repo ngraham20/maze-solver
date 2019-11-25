@@ -5,6 +5,10 @@ import random
 
 class SolveRB(MazeSolver):
 
+    def __init__(self):
+        super().__init__()
+        self.name = "solutionRB"
+
     def solve(self, beginning, end):
         start_time = time.time()
         the_visited = set()
@@ -41,7 +45,3 @@ class SolveRB(MazeSolver):
         self.duration = time.time() - start_time
 
         return the_stack
-
-    def save_png(self, image):
-        image.save("pngs/" + str(self.maze.size) + "x" + str(self.maze.size) + "-solutionRB-" +
-                             str(float("%.5f" % self.duration)) + "s.png", "PNG")
