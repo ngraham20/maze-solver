@@ -7,18 +7,21 @@ class Maze(object):
 
     matrix: List[List[Tree]]
 
-    def __init__(self, size: int):
-        self.size = size
-        if self.size % 2 == 0:
-            self.size += 1
-        self.image = Image.new('RGB', (self.size, self.size))
+    def __init__(self, size: int = None):
+        if size:
+            self.size = size
+            if self.size % 2 == 0:
+                self.size += 1
+            self.image = Image.new('RGB', (self.size, self.size))
+            self.draw = ImageDraw.Draw(self.image, "RGB")
+
+            self.matrix = [[None] * self.size for _ in range(self.size)]
+
+    def import_png(self, png: str):
+        self.image = Image.open(png).convert('RGB')
         self.draw = ImageDraw.Draw(self.image, "RGB")
-
+        self.size = self.image.size[0]
         self.matrix = [[None] * self.size for _ in range(self.size)]
-
-    @staticmethod
-    def import_png(png: str) -> Image.Image:
-        return Image.open(png).convert('RGB')
 
     def setup_grid(self):
         for y in range(self.size):  # loop row
