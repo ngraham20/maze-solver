@@ -12,8 +12,8 @@ def main():
      # rb.save_solution(the_stack)
 
      star = SolveAStar()
-     star.import_png("pngs/1001x1001-RB-1.12744s.png")
-     solution = star.solve((1, 1), (999, 999))
+     star.import_png("pngs/10001x10001-RB-180.22606s.png")
+     solution = star.solve((1, 1), (9999, 9999))
 
      solution.reverse()
      star.save_solution(solution)

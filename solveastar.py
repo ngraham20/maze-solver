@@ -3,6 +3,7 @@ from functools import total_ordering
 from mazesolver import MazeSolver
 import math
 import time
+import sys
 
 
 class SolveAStar(MazeSolver):
@@ -29,7 +30,7 @@ class SolveAStar(MazeSolver):
 
             if (x, y) == end:
                 self.duration = time.time() - start_time
-                return node.ancestry
+                return Node.calculate_ancestry(node)
 
             successors = []
 
@@ -62,7 +63,6 @@ class SolveAStar(MazeSolver):
                     if child not in the_open:
                         the_open[child.location] = child
                     else:
-                        #open_neighbor = [neighbor for neighbor in the_open if neighbor.location == child.location][0]
                         open_neighbor = the_open[child.location]
                         if child.g < open_neighbor.g:
                             open_neighbor.g = child.g
@@ -77,14 +77,18 @@ class Node:
         self.parent = parent
         self.location = location
 
-        self.ancestry = [self.location]
-
-        if self.parent is not None:
-            self.ancestry += self.parent.ancestry
-
         self.g = 0
         self.h = 0
         self.f = 0
+
+    @staticmethod
+    def calculate_ancestry(node):
+        the_stack = [node.location]
+        parent = node.parent
+        while parent is not None:
+            the_stack.append(parent.location)
+            parent = parent.parent
+        return the_stack
 
     def __eq__(self, other):
         return self.location == other.location
