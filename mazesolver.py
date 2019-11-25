@@ -21,10 +21,11 @@ class MazeSolver:
         pass
 
     def save_png(self, image):
-        image.save("pngs/" + str(self.maze.size) + "x" + str(self.maze.size) + "-" + self.name + "-" +
+        image.save("./solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" +
                    str(float("%.5f" % self.duration)) + "s.png", "PNG")
 
     def save_solution(self, solution):
+        solution.reverse()
         size = len(solution)
         section = size // 2
         increment = 255 / section
