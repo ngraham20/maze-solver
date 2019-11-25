@@ -5,6 +5,9 @@ import random
 
 class RecursiveBacktracker(MazeGenerator):
 
+    def maze_generator_factory(self, size: int):
+        return RecursiveBacktracker(size)
+
     def generate(self):
         start_time = time.time()
 
@@ -36,7 +39,7 @@ class RecursiveBacktracker(MazeGenerator):
         self.duration = time.time() - start_time
 
     def save_png(self):
-        self.maze.image.save("pngs/" + str(self.maze.size) + "x" + str(self.maze.size) + "-RB-" +
+        self.maze.image.save("mazes/RB-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" +
                              str(float("%.5f" % self.duration)) + "s.png", "PNG")
 
     def print_duration(self):

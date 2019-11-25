@@ -2,6 +2,7 @@
 from maze import Maze
 import time
 import random
+from abc import ABC, abstractmethod
 
 
 class MazeGenerator:
@@ -22,3 +23,10 @@ class MazeGenerator:
 
     def print_duration(self):
         pass
+
+    @abstractmethod
+    def maze_generator_factory(self, size: int):
+        pass
+
+
+
