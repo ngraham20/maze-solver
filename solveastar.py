@@ -1,9 +1,6 @@
 # A* search algorithm for solving the maze
-from functools import total_ordering
 from mazesolver import MazeSolver
-import math
 import time
-import sys
 
 
 class SolveAStar(MazeSolver):
@@ -12,7 +9,7 @@ class SolveAStar(MazeSolver):
         super().__init__()
         self.name = "solutionAStar"
 
-    def solve(self, beginning, end):
+    def solve(self, beginning, end, history_log=None):
         start_time = time.time()
 
         the_open = {}
@@ -26,6 +23,7 @@ class SolveAStar(MazeSolver):
             node = min(the_open.values())
             the_open.pop(node.location, None)
             the_closed.add(node.location)
+            history_log.append(("closed", node.location))
             x, y = node.location
 
             if (x, y) == end:
@@ -62,6 +60,7 @@ class SolveAStar(MazeSolver):
                     child.f = int((child.g + child.h))  # (g + h)
                     if child not in the_open:
                         the_open[child.location] = child
+                        history_log.append(("open", child.location))
                     else:
                         open_neighbor = the_open[child.location]
                         if child.g < open_neighbor.g:
@@ -69,6 +68,7 @@ class SolveAStar(MazeSolver):
                             open_neighbor.parent = child.parent
 
             the_closed.add(node.location)
+            history_log.append(("closed", node.location))
 
 
 class Node:

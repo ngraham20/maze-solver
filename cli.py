@@ -119,8 +119,9 @@ class CLI:
             if int(user_input) == len(options):
                 break
             solver.import_png(path + options[int(user_input) - 1])
-            solution = solver.solve((1, 1), (solver.maze.size - 2, solver.maze.size - 2))
-            solver.save_solution(solution)
+            history = []
+            solution = solver.solve((1, 1), (solver.maze.size - 2, solver.maze.size - 2), history)
+            solver.save_solution(solution, history)
 
 
 if __name__ == "__main__":
