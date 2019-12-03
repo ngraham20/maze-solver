@@ -27,8 +27,8 @@ class MazeSolver:
         pass
 
     def generate_png(self, image):
-        dir_name = "./solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" +\
-        str(float("%.5f" % self.duration)) + "s.png"
+        dir_name = "./solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" + \
+                   str(float("%.5f" % self.duration)) + "s.png"
         image.save(dir_name, "PNG")
 
         print("Solution saved to", dir_name)
@@ -83,5 +83,5 @@ class MazeSolver:
             images.append(Image.open(dir_name + "/" + filename).convert('RGB'))
 
         print("Saving gif to", dir_name + "/out.gif")
-        self.maze.image.save(dir_name + "/out.gif", save_all=True, append_images=images, optimize=False, duration=10, loop=0)
-
+        self.maze.image.save(dir_name + "/out.gif", save_all=True, append_images=images, optimize=False, duration=10,
+                             loop=0)
