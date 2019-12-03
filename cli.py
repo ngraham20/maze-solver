@@ -96,32 +96,71 @@ class CLI:
             if int(operation) >= len(options):
                 print("Please choose one of the specified options")
             elif options[int(operation) - 1] == "Recursive Backtracking":
-                self.solve_generic("Recursive Backtracking", SolveRB())
+                solve_generic("Recursive Backtracking", SolveRB())
             elif options[int(operation) - 1] == "A-Star":
-                self.solve_generic("A-Star", SolveAStar())
+                solve_generic("A-Star", SolveAStar())
 
-    @staticmethod
-    def solve_generic(title, solver):
-        while True:
-            path = "./mazes/"
-            options = [f for f in listdir(path) if isfile(join(path, f))] + ["Back"]
-            width = 50
-            header = " " * ((width - len(title)) // 2) + title + " " * ((width - len(title)) // 2)
-            print("--------------------------------------------------")
-            print(header)
-            print("- - - - - - - - - - - - - - - - - - - - - - - - - ")
-            print(" Please select a PNG to import                    ")
-            for index in range(len(options)):
-                print(" (%s) %s" % (str(index + 1), options[index]))
-            print("--------------------------------------------------")
 
-            user_input = input(">>")
-            if int(user_input) == len(options):
-                break
-            solver.import_png(path + options[int(user_input) - 1])
-            history = []
-            solution = solver.solve((1, 1), (solver.maze.size - 2, solver.maze.size - 2), history)
+def solve_generic(title, solver):
+    while True:
+        path = "./mazes/"
+        options = [f for f in listdir(path) if isfile(join(path, f))] + ["Back"]
+        width = 50
+        header = " " * ((width - len(title)) // 2) + title + " " * ((width - len(title)) // 2)
+        print("--------------------------------------------------")
+        print(header)
+        print("- - - - - - - - - - - - - - - - - - - - - - - - - ")
+        print(" Please select a PNG to import                    ")
+        for index in range(len(options)):
+            print(" (%s) %s" % (str(index + 1), options[index]))
+        print("- - - - - - - - - - - - - - - - - - - - - - - - - ")
+
+        user_input = input(">>")
+        if int(user_input) == len(options):
+            break
+        solver.import_png(path + options[int(user_input) - 1])
+        history = []
+        solution = solver.solve((1, 1), (solver.maze.size - 2, solver.maze.size - 2), history)
+        print("Solution Found.")
+        print("- - - - - - - - - - - - - - - - - - - - - - - - - ")
+        print("Would you like to save the process as well as the solution? (Y/N)")
+        answer = None
+        while answer is None:
+            answer = input(">>")
+            if answer.upper() != "Y" and answer.upper() != "N":
+                print("Please answer with yes (Y) or no (N)")
+                answer = None
+
+        if answer.upper() == "Y":
+            print("Saving solution and history.")
             solver.save_solution(solution, history)
+            print("- - - - - - - - - - - - - - - - - - - - - - - - - ")
+            print("Would you like to compile a gif of the history? (Y/N)")
+            gif_answer = None
+            while gif_answer is None:
+                gif_answer = input(">>")
+                if gif_answer.upper() != "Y" and gif_answer.upper() != "N":
+                    print("Please answer with yes (Y) or no (N)")
+                    gif_answer = None
+
+            if gif_answer.upper() == "Y":
+                print("Compiling gif.")
+                solver.compile_gif()
+
+        else:
+            print("Saving solution.")
+            solver.save_solution(solution)
+            print("Would you like to compile a gif of the soluiton? (Y/N)")
+            gif_answer = None
+            while gif_answer is None:
+                gif_answer = input(">>")
+                if gif_answer.upper() != "Y" and gif_answer.upper() != "N":
+                    print("Please answer with yes (Y) or no (N)")
+                    gif_answer = None
+
+            if gif_answer.upper() == "Y":
+                print("Compiling gif.")
+                solver.compile_gif()
 
 
 if __name__ == "__main__":

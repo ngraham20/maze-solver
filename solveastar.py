@@ -10,6 +10,7 @@ class SolveAStar(MazeSolver):
         self.name = "solutionAStar"
 
     def solve(self, beginning, end, history_log=None):
+        super().solve(beginning, end)
         start_time = time.time()
 
         the_open = {}

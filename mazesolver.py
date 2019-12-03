@@ -1,6 +1,11 @@
+from PIL import Image
+
 from maze import Maze
 from typing import List, Tuple
 import os
+from os.path import isfile, join
+from natsort import natsorted, ns
+
 
 class MazeSolver:
 
@@ -29,12 +34,8 @@ class MazeSolver:
         dir_name = "solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" + \
                    str(float("%.5f" % self.duration)) + "s"
 
-        try:
-            # Create target Directory
-            os.mkdir(dir_name)
-            print("Directory ", dir_name,  " Created ")
-        except FileExistsError:
-            print("Directory ", dir_name,  " already exists")
+        if not os.path.exists(dir_name):
+            os.makedirs(dir_name)
 
         image.save(dir_name + "/" + str(frame_number) + ".png", "PNG")
 
@@ -68,4 +69,15 @@ class MazeSolver:
             self.save_gif(self.maze.image, index)
             index += 1
         return index
+
+    def compile_gif(self):
+        dir_name = "solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" + \
+                   str(float("%.5f" % self.duration)) + "s"
+
+        files = natsorted([f for f in os.listdir(dir_name) if isfile(join(dir_name, f))], key=lambda y: y.lower())
+        images = []
+        for filename in files:
+            images.append(Image.open(dir_name + "/" + filename).convert('RGB'))
+
+        self.maze.image.save(dir_name + '/out.gif', save_all=True, append_images=images, optimize=False, duration=20, loop=0)
 
