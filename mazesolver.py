@@ -71,7 +71,7 @@ class MazeSolver:
             elif action[0] == "push":
                 self.maze.draw.point(action[1], (0, 255, 0))
             elif action[0] == "pop":
-                self.maze.draw.point(action[1], (255, 255, 255))
+                self.maze.draw.point(action[1], (35, 192, 209))
             self.save_frame(self.maze.image, index)
             index += 1
         return index
