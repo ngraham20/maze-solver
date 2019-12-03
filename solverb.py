@@ -9,15 +9,17 @@ class SolveRB(MazeSolver):
         super().__init__()
         self.name = "solutionRB"
 
-    def solve(self, beginning, end):
+    def solve(self, beginning, end, history_log=None):
         start_time = time.time()
         the_visited = set()
         the_visited.add(beginning)
 
         the_stack = [beginning]
+        history_log.append(("push", beginning))
 
         while end not in the_stack:
             x, y = the_stack.pop()
+            history_log.append(("pop", (x, y)))
             pool = []
 
             # check north
@@ -38,10 +40,14 @@ class SolveRB(MazeSolver):
 
             if len(pool) > 0:
                 the_stack.append((x, y))
+                history_log.append(("push", (x, y)))
                 next_node = random.choice(pool)
                 the_visited.add(next_node)
                 the_stack.append(next_node)
+                history_log.append(("push", next_node))
 
         self.duration = time.time() - start_time
 
         return the_stack
+
+

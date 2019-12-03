@@ -47,7 +47,6 @@ class MazeSolver:
         if history_log:
             history_frames = self.save_history(history_log)
 
-        solution.reverse()
         size = len(solution)
         section = size // 2
         increment = 255 / section
@@ -69,6 +68,10 @@ class MazeSolver:
                 self.maze.draw.point(action[1], (0, 255, 0))
             elif action[0] == "open":
                 self.maze.draw.point(action[1], (0, 0, 255))
+            elif action[0] == "push":
+                self.maze.draw.point(action[1], (0, 255, 0))
+            elif action[0] == "pop":
+                self.maze.draw.point(action[1], (255, 255, 255))
             self.save_frame(self.maze.image, index)
             index += 1
         return index

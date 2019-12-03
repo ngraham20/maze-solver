@@ -71,6 +71,10 @@ class SolveAStar(MazeSolver):
             the_closed.add(node.location)
             history_log.append(("closed", node.location))
 
+    def save_solution(self, solution, history_log=None):
+        solution.reverse()
+        super().save_solution(solution, history_log)
+
 
 class Node:
 
