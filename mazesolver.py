@@ -4,7 +4,7 @@ from maze import Maze
 from typing import List, Tuple
 import os
 from os.path import isfile, join
-from natsort import natsorted, ns
+from natsort import natsorted
 
 
 class MazeSolver:
@@ -27,12 +27,15 @@ class MazeSolver:
         pass
 
     def generate_png(self, image):
-        image.save("./solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" +
-                   str(float("%.5f" % self.duration)) + "s.png", "PNG")
+        dir_name = "./solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" +\
+        str(float("%.5f" % self.duration)) + "s.png"
+        image.save(dir_name, "PNG")
+
+        print("Solution saved to", dir_name)
 
     def save_gif(self, image, frame_number):
-        dir_name = "solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" + \
-                   str(float("%.5f" % self.duration)) + "s"
+        dir_name = "solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" \
+                   + str(float("%.5f" % self.duration)) + "s"
 
         if not os.path.exists(dir_name):
             os.makedirs(dir_name)
@@ -79,5 +82,6 @@ class MazeSolver:
         for filename in files:
             images.append(Image.open(dir_name + "/" + filename).convert('RGB'))
 
-        self.maze.image.save(dir_name + '/out.gif', save_all=True, append_images=images, optimize=False, duration=20, loop=0)
+        print("Saving gif to", dir_name + "/out.gif")
+        self.maze.image.save(dir_name + "/out.gif", save_all=True, append_images=images, optimize=False, duration=10, loop=0)
 
