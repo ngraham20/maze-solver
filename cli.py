@@ -134,33 +134,36 @@ def solve_generic(title, solver):
         if answer.upper() == "Y":
             print("Saving solution and history.")
             solver.save_solution(solution, history)
-            print("- - - - - - - - - - - - - - - - - - - - - - - - - ")
-            print("Would you like to compile a gif of the history? (Y/N)")
-            gif_answer = None
-            while gif_answer is None:
-                gif_answer = input(">>")
-                if gif_answer.upper() != "Y" and gif_answer.upper() != "N":
-                    print("Please answer with yes (Y) or no (N)")
-                    gif_answer = None
-
-            if gif_answer.upper() == "Y":
-                print("Compiling gif.")
-                solver.compile_gif()
+            # print("- - - - - - - - - - - - - - - - - - - - - - - - - ")
+            # print("Would you like to compile a gif of the history? (Y/N)")
+            # gif_answer = None
+            # while gif_answer is None:
+            #     gif_answer = input(">>")
+            #     if gif_answer.upper() != "Y" and gif_answer.upper() != "N":
+            #         print("Please answer with yes (Y) or no (N)")
+            #         gif_answer = None
+            #
+            # if gif_answer.upper() == "Y":
+            #     print("Compiling gif.")
+            #     solver.compile_gif()
 
         else:
             print("Saving solution.")
             solver.save_solution(solution)
-            print("Would you like to compile a gif of the soluiton? (Y/N)")
-            gif_answer = None
-            while gif_answer is None:
-                gif_answer = input(">>")
-                if gif_answer.upper() != "Y" and gif_answer.upper() != "N":
-                    print("Please answer with yes (Y) or no (N)")
-                    gif_answer = None
 
-            if gif_answer.upper() == "Y":
-                print("Compiling gif.")
-                solver.compile_gif()
+        print("To compile a gif of the solution, use")
+        print("gifski --fps 60 -o 60.gif *.png")
+        
+            # gif_answer = None
+            # while gif_answer is None:
+            #     gif_answer = input(">>")
+            #     if gif_answer.upper() != "Y" and gif_answer.upper() != "N":
+            #         print("Please answer with yes (Y) or no (N)")
+            #         gif_answer = None
+            #
+            # if gif_answer.upper() == "Y":
+            #     print("Compiling gif.")
+                # solver.compile_gif()
 
 
 if __name__ == "__main__":

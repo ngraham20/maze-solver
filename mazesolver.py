@@ -33,7 +33,7 @@ class MazeSolver:
 
         print("Solution saved to", dir_name)
 
-    def save_gif(self, image, frame_number):
+    def save_frame(self, image, frame_number):
         dir_name = "solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" \
                    + str(float("%.5f" % self.duration)) + "s"
 
@@ -53,11 +53,11 @@ class MazeSolver:
         increment = 255 / section
         for index in range(section):  # from red to purple
             self.maze.draw.point(solution[index], (255, 0, int(0 + increment * index)))
-            self.save_gif(self.maze.image, index + history_frames)
+            self.save_frame(self.maze.image, index + history_frames)
 
         for index in range(section + 1):  # from purple to blue
             self.maze.draw.point(solution[section + index], (int(255 - increment * index), 0, 255))
-            self.save_gif(self.maze.image, section + index + history_frames)
+            self.save_frame(self.maze.image, section + index + history_frames)
 
         self.generate_png(self.maze.image)
 
@@ -69,19 +69,19 @@ class MazeSolver:
                 self.maze.draw.point(action[1], (0, 255, 0))
             elif action[0] == "open":
                 self.maze.draw.point(action[1], (0, 0, 255))
-            self.save_gif(self.maze.image, index)
+            self.save_frame(self.maze.image, index)
             index += 1
         return index
 
-    def compile_gif(self):
-        dir_name = "solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" + \
-                   str(float("%.5f" % self.duration)) + "s"
-
-        files = natsorted([f for f in os.listdir(dir_name) if isfile(join(dir_name, f))], key=lambda y: y.lower())
-        images = []
-        for filename in files:
-            images.append(Image.open(dir_name + "/" + filename).convert('RGB'))
-
-        print("Saving gif to", dir_name + "/out.gif")
-        self.maze.image.save(dir_name + "/out.gif", save_all=True, append_images=images, optimize=False, duration=10,
-                             loop=0)
+    # def compile_gif(self):
+    #     dir_name = "solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" + \
+    #                str(float("%.5f" % self.duration)) + "s"
+    #
+    #     files = natsorted([f for f in os.listdir(dir_name) if isfile(join(dir_name, f))], key=lambda y: y.lower())
+    #     images = []
+    #     for filename in files:
+    #         images.append(Image.open(dir_name + "/" + filename).convert('RGB'))
+    #
+    #     print("Saving gif to", dir_name + "/out.gif")
+    #     self.maze.image.save(dir_name + "/out.gif", save_all=True, append_images=images, optimize=False, duration=10,
+    #                          loop=0)
