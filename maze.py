@@ -1,6 +1,8 @@
 from PIL import Image, ImageDraw
 from tree import Tree
 from typing import List
+import pngfunctions
+import random
 
 
 class Maze(object):
@@ -31,7 +33,7 @@ class Maze(object):
                         self.draw.point((x, y), (255, 255, 255))  # make it white
                         self.matrix[x][y] = Tree(x, y)  # add the node
 
-    def connect(self, node_a: Tree, node_b: Tree):
+    def connect(self, node_a: Tree, node_b: Tree, history_log=None):
         a_x = node_a.location[0]
         a_y = node_a.location[1]
 
@@ -41,19 +43,31 @@ class Maze(object):
         if a_x > b_x:  # if a is to the right of b
             node_a.west = node_b
             node_b.east = node_a
-            self.draw.point((a_x - 1, a_y), (255, 255, 255))  # bridge
+            if history_log is not None:
+                history_log.append(("bridge", (a_x - 1, a_y)))
+            else:
+                self.draw.point((a_x - 1, a_y), (255, 255, 255))  # bridge
         elif b_x > a_x:  # if b is to the right of a
             node_b.west = node_a
             node_a.east = node_b
-            self.draw.point((b_x - 1, b_y), (255, 255, 255))  # bridge
+            if history_log is not None:
+                history_log.append(("bridge", (b_x - 1, b_y)))
+            else:
+                self.draw.point((b_x - 1, b_y), (255, 255, 255))  # bridge
         elif a_y < b_y:  # if a is above b
             node_a.south = node_b
             node_b.north = node_a
-            self.draw.point((a_x, a_y + 1), (255, 255, 255))  # bridge
+            if history_log is not None:
+                history_log.append(("bridge", (a_x, a_y + 1)))
+            else:
+                self.draw.point((a_x, a_y + 1), (255, 255, 255))  # bridge
         elif b_y < a_y:  # if b is above a
             node_b.south = node_a
             node_a.north = node_b
-            self.draw.point((b_x, b_y + 1), (255, 255, 255))  # bridge
+            if history_log is not None:
+                history_log.append(("bridge", (b_x, b_y + 1)))
+            else:
+                self.draw.point((b_x, b_y + 1), (255, 255, 255))  # bridge
 
     def show(self):
         self.image.show()

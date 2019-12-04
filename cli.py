@@ -1,4 +1,4 @@
-from recursivebacktracker import RecursiveBacktracker
+from generaterb import GenerateRB
 from solveastar import SolveAStar
 from solverb import SolveRB
 from os import listdir
@@ -57,9 +57,9 @@ class CLI:
                 print("Please choose one of the specified options")
             elif options[int(operation) - 1] == "Recursive Backtracking":
                 size = self.generation_settings("Recursive Backtracking")
-                rb = RecursiveBacktracker(size)
-                rb.generate()
-                rb.print_duration()
+                rb = GenerateRB(size)
+                rb.generate([])
+                rb.print_results()
                 rb.save_png()
 
     @staticmethod
