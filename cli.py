@@ -1,4 +1,4 @@
-from recursivebacktracker import RecursiveBacktracker
+from generaterb import GenerateRB
 from solveastar import SolveAStar
 from solverb import SolveRB
 from os import listdir
@@ -49,7 +49,7 @@ class CLI:
             for index in range(len(options)):
                 print(" (%s) %s" % (str(index + 1), options[index]))
             print("--------------------------------------------------")
-
+            generator = None
             operation = input(">>")
             if int(operation) == len(options):
                 break
@@ -57,10 +57,27 @@ class CLI:
                 print("Please choose one of the specified options")
             elif options[int(operation) - 1] == "Recursive Backtracking":
                 size = self.generation_settings("Recursive Backtracking")
-                rb = RecursiveBacktracker(size)
-                rb.generate()
-                rb.print_duration()
-                rb.save_png()
+                generator = GenerateRB(size)
+            print("- - - - - - - - - - - - - - - - - - - - - - - - - ")
+            print("Would you like to save the process as well as the solution? (Y/N)")
+            answer = None
+            while answer is None:
+                answer = input(">>")
+                if answer.upper() != "Y" and answer.upper() != "N":
+                    print("Please answer with yes (Y) or no (N)")
+                    answer = None
+
+            if answer.upper() == "Y":
+                print("Saving solution and history.")
+                generator.generate([])
+            else:
+                print("Saving solution.")
+                generator.generate()
+            generator.print_results()
+            generator.save_png()
+
+            print("To compile a gif of the solution, use")
+            print("gifski --fps 60 -o out.gif *.png")
 
     @staticmethod
     def generation_settings(title):

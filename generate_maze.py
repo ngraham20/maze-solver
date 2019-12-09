@@ -1,10 +1,10 @@
-from recursivebacktracker import RecursiveBacktracker
+from generaterb import GenerateRB
 
 
 def main():
-    rb = RecursiveBacktracker(100)
+    rb = GenerateRB(100)
     rb.generate()
-    rb.print_duration()
+    rb.print_results()
     rb.save_png()
 
 

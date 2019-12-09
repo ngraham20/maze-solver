@@ -1,10 +1,6 @@
-from PIL import Image
-
 from maze import Maze
 from typing import List, Tuple
-import os
-from os.path import isfile, join
-from natsort import natsorted
+import pngfunctions
 
 
 class MazeSolver:
@@ -33,16 +29,10 @@ class MazeSolver:
 
         print("Solution saved to", dir_name)
 
-    def save_frame(self, image, frame_number):
+    def save_solution(self, solution, history_log=None):
         dir_name = "solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" \
                    + str(float("%.5f" % self.duration)) + "s"
 
-        if not os.path.exists(dir_name):
-            os.makedirs(dir_name)
-
-        image.save(dir_name + "/" + str(frame_number) + ".png", "PNG")
-
-    def save_solution(self, solution, history_log=None):
         history_frames = 0
         if history_log:
             history_frames = self.save_history(history_log)
@@ -52,15 +42,16 @@ class MazeSolver:
         increment = 255 / section
         for index in range(section):  # from red to purple
             self.maze.draw.point(solution[index], (255, 0, int(0 + increment * index)))
-            self.save_frame(self.maze.image, index + history_frames)
+            pngfunctions.save_frame(self.maze.image, dir_name, index + history_frames)
 
         for index in range(section + 1):  # from purple to blue
             self.maze.draw.point(solution[section + index], (int(255 - increment * index), 0, 255))
-            self.save_frame(self.maze.image, section + index + history_frames)
 
-        self.generate_png(self.maze.image)
+            pngfunctions.save_frame(self.maze.image, dir_name, section + index + history_frames)
 
     def save_history(self, history_log):
+        dir_name = "solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" \
+                   + str(float("%.5f" % self.duration)) + "s"
         index = 0
         for action in history_log:
             action: Tuple
@@ -72,19 +63,6 @@ class MazeSolver:
                 self.maze.draw.point(action[1], (0, 255, 0))
             elif action[0] == "pop":
                 self.maze.draw.point(action[1], (35, 192, 209))
-            self.save_frame(self.maze.image, index)
+            pngfunctions.save_frame(self.maze.image, dir_name, index)
             index += 1
         return index
-
-    # def compile_gif(self):
-    #     dir_name = "solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" + \
-    #                str(float("%.5f" % self.duration)) + "s"
-    #
-    #     files = natsorted([f for f in os.listdir(dir_name) if isfile(join(dir_name, f))], key=lambda y: y.lower())
-    #     images = []
-    #     for filename in files:
-    #         images.append(Image.open(dir_name + "/" + filename).convert('RGB'))
-    #
-    #     print("Saving gif to", dir_name + "/out.gif")
-    #     self.maze.image.save(dir_name + "/out.gif", save_all=True, append_images=images, optimize=False, duration=10,
-    #                          loop=0)

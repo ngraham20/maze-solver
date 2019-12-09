@@ -3,6 +3,8 @@ from maze import Maze
 import time
 import random
 from abc import ABC, abstractmethod
+import pngfunctions
+from typing import Tuple
 
 
 class MazeGenerator:
@@ -10,6 +12,8 @@ class MazeGenerator:
     def __init__(self, size):
         self.maze = Maze(size)
         self.maze.setup_grid()
+        self.name = "DEFAULT"
+        self.size = size
 
         self.matrix = self.maze.matrix
 
@@ -21,7 +25,7 @@ class MazeGenerator:
     def save_png(self):
         pass
 
-    def print_duration(self):
+    def print_results(self):
         pass
 
     @abstractmethod
