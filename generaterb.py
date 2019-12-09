@@ -21,12 +21,18 @@ class GenerateRB(MazeGenerator):
             action: Tuple
             if action[0] == "bridge":
                 self.maze.draw.point(action[1], (255, 255, 255))
+                if frame + 1 < len(history_log):
+                    self.maze.draw.point(history_log[frame + 1][1], (0, 0, 255))
             if action[0] == "pop":
                 self.maze.draw.point(action[1], (0, 0, 255))
                 if frame - 1 > 0:
                     self.maze.draw.point(history_log[frame - 1][1], (255, 255, 255))
+                if frame - 2 >= 0 and history_log[frame - 1][0] == "bridge":
+                    self.maze.draw.point(history_log[frame - 2][1], (255, 255, 255))
             pngfunctions.save_frame(self.maze.image, self.directory, frame)
             frame += 1
+
+            # TODO if theres a bridge, white out 2 back, otherwise white out 1 back
 
     def generate(self, history_log=None):
         start_time = time.time()
@@ -59,8 +65,8 @@ class GenerateRB(MazeGenerator):
                 self.maze.connect(self.matrix[x][y], self.matrix[next_node[0]][next_node[1]], history_log)
                 self.matrix[next_node[0]][next_node[1]].visited = True
                 the_stack.append(next_node)
-                if history_log is not None:
-                    history_log.append(("push", (x, y)))
+                # if history_log is not None:
+                #     history_log.append(("push", (x, y)))
 
         self.duration = time.time() - start_time
         if history_log is not None:
