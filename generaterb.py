@@ -32,8 +32,6 @@ class GenerateRB(MazeGenerator):
             pngfunctions.save_frame(self.maze.image, self.directory, frame)
             frame += 1
 
-            # TODO if theres a bridge, white out 2 back, otherwise white out 1 back
-
     def generate(self, history_log=None):
         start_time = time.time()
 
