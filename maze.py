@@ -7,6 +7,9 @@ import random
 
 class Maze(object):
 
+    #nodes have knowledge of eachother
+    #access node by xy val and know which are next to that node
+    #linking when have a path to eachother
     matrix: List[List[Tree]]
 
     def __init__(self, size: int = None):
@@ -17,8 +20,9 @@ class Maze(object):
             self.image = Image.new('RGB', (self.size, self.size))
             self.draw = ImageDraw.Draw(self.image, "RGB")
 
-            self.matrix = [[None] * self.size for _ in range(self.size)]
-
+            self.matrix = [[None] * self.size for _ in range(self.size)] #array of none size times over
+            #2D array of none type created
+            
     def import_png(self, png: str):
         self.image = Image.open(png).convert('RGB')
         self.draw = ImageDraw.Draw(self.image, "RGB")
