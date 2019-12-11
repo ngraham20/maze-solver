@@ -29,33 +29,31 @@ class GeneratePrimms(MazeGenerator):
         self.name = "Primms"
         super().__init__(size)
 
-    def generate(self):
-        super().generate()
+    def generate(self, history_log=None):
 
-        the_frontier = [(1, 1)] #queue
+        the_frontier = [(1, 1)]  # queue
         self.matrix[1][1].visited = True
 
-        while the_frontier
+        while the_frontier:
             x, y = the_frontier.pop()
             # check all directions for new frontiers, add to frontier
             if y - 2 > 0 and not self.matrix[x][y - 2].visited:  # check north
-                the_frontier.push((x, y - 2))
+                the_frontier.append((x, y - 2))
 
             if y + 2 < len(self.matrix) and not self.matrix[x][y + 2].visited:  # check south
-                the_frontier.push((x, y + 2))
+                the_frontier.append((x, y + 2))
 
             if x - 2 > 0 and not self.matrix[x - 2][y].visited:  # check east
-                the_frontier.push((x - 2, y))
+                the_frontier.append((x - 2, y))
 
             if x + 2 < len(self.matrix) and not self.matrix[x + 2][y].visited:  # check west
-                the_frontier.push((x + 2, y))
+                the_frontier.append((x + 2, y))
 
             if len(the_frontier) > 0:
-                next_node = the_frontier.pop() # pick next node
-                self.maze.connect(self.matrix[x][y], self.matrix[next_node[0]][next_node[1]], None)  # Nath what do for history here?
+                next_node = the_frontier.pop()  # pick next node
+                self.maze.connect(self.matrix[x][y], self.matrix[next_node[0]][next_node[1]], history_log)  # Nath what do for history here?
                 self.matrix[next_node[0]][next_node[1]].visited = True
-                the_frontier.push(next_node)
-
+                the_frontier.append(next_node)
 
     def save_png(self):
         super().save_png()
