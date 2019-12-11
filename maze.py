@@ -34,7 +34,6 @@ class Maze(object):
             if y % 2 == 1:  # every other row
                 for x in range(self.size):  # every other pixel
                     if x % 2 == 1:
-                        self.draw.point((x, y), (255, 255, 255))  # make it white
                         self.matrix[x][y] = Tree(x, y)  # add the node
 
     def connect(self, node_a: Tree, node_b: Tree, history_log=None):
@@ -43,6 +42,10 @@ class Maze(object):
 
         b_x = node_b.location[0]
         b_y = node_b.location[1]
+
+        if history_log is None:
+            self.draw.point((a_x, a_y), (255, 255, 255))
+            self.draw.point((b_x, b_y), (255, 255, 255))
 
         if a_x > b_x:  # if a is to the right of b
             node_a.west = node_b
