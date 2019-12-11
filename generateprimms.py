@@ -26,12 +26,15 @@ heap for smallest/largest
 
 class GeneratePrimms(MazeGenerator):
     def __init__(self, size):
-        self.name = "Primms"
         super().__init__(size)
+        self.name = "Primms"
+        self.directory = "mazes/" + self.name + "-" + str(self.size) + "x" + str(self.size) + "-" + hex(random.randint(0, 500))
 
     def generate(self, history_log=None):
 
-        the_frontier = [(1, 1)]  # queue
+        start_time = time.time()
+
+        the_frontier = {(1, 1)}  # set
         self.matrix[1][1].visited = True
 
         while the_frontier:
@@ -50,13 +53,16 @@ class GeneratePrimms(MazeGenerator):
                 the_frontier.append((x + 2, y))
 
             if len(the_frontier) > 0:
-                next_node = the_frontier.pop()  # pick next node
+                next_node = random.choice(the_frontier)  # pick next node
                 self.maze.connect(self.matrix[x][y], self.matrix[next_node[0]][next_node[1]], history_log)  # Nath what do for history here?
                 self.matrix[next_node[0]][next_node[1]].visited = True
                 the_frontier.append(next_node)
 
+        self.duration = time.time() - start_time
+
     def save_png(self):
-        super().save_png()
+        self.maze.image.save("mazes/" + self.name + "-" + str(self.size) + "x" + str(self.size) + "-" +
+                             str(float("%.5f" % self.duration)) + "s.png", "PNG")
 
     def print_results(self):
         super().print_results()
@@ -68,5 +74,6 @@ class GeneratePrimms(MazeGenerator):
 
 generator = GeneratePrimms(11)
 generator.generate()
+generator.save_png()
 
 #to run right click file and run file
