@@ -7,13 +7,24 @@ from typing import Tuple
 
 #questions
 """
-why tree? what do? Do need for primms
-
-
+start at 1,1 in array 
+tree starts as n/2 by n/2 nodes
+jumping nodes is + 2
+give connect both nodes to remove wall --in maze.py
+set has const time removal - use for frontier nodes if rand pick
+if pick first/last one then use queue/stack
+    stacks and queues are both lists 
+    append treats like stack
+    enqueue or dequeue add front remove back
+    append/pop remove from same side
+    
+    no history
+    access nodes by location in matrix until nodes are linked in Tree
+heap for smallest/largest
 """
 
 
-class GenerateRB(MazeGenerator):
+class GeneratePrimms(MazeGenerator):
 
     def __init__(self, size):
         super().__init__(size)
@@ -21,24 +32,7 @@ class GenerateRB(MazeGenerator):
         self.directory = "mazes/" + self.name + "-" + str(self.size) + "x" + str(self.size) + "-" + hex(random.randint(0, 500))
 
     def maze_generator_factory(self, size: int):
-        return GenerateRB(size)
-
-    def save_history(self, history_log):
-        frame = 0
-        for action in history_log:
-            action: Tuple
-            if action[0] == "bridge":
-                self.maze.draw.point(action[1], (255, 255, 255))
-                if frame + 1 < len(history_log):
-                    self.maze.draw.point(history_log[frame + 1][1], (0, 0, 255))
-            if action[0] == "pop":
-                self.maze.draw.point(action[1], (0, 0, 255))
-                if frame - 1 > 0:
-                    self.maze.draw.point(history_log[frame - 1][1], (255, 255, 255))
-                if frame - 2 >= 0 and history_log[frame - 1][0] == "bridge":
-                    self.maze.draw.point(history_log[frame - 2][1], (255, 255, 255))
-            pngfunctions.save_frame(self.maze.image, self.directory, frame)
-            frame += 1
+        return GeneratePrimms(size)
 
     def generate(self, history_log=None):
         start_time = time.time()

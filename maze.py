@@ -5,6 +5,7 @@ import pngfunctions
 import random
 
 
+
 class Maze(object):
 
     #nodes have knowledge of eachother
