@@ -8,9 +8,8 @@ from typing import Tuple
 class GenerateRB(MazeGenerator):
 
     def __init__(self, size):
-        super().__init__(size)
         self.name = "RB"
-        self.directory = "mazes/" + self.name + "-" + str(self.size) + "x" + str(self.size) + "-" + hex(random.randint(0, 500))
+        super().__init__(size)
 
     def maze_generator_factory(self, size: int):
         return GenerateRB(size)

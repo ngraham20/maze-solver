@@ -3,8 +3,6 @@ from maze import Maze
 import time
 import random
 from abc import ABC, abstractmethod
-import pngfunctions
-from typing import Tuple
 
 
 class MazeGenerator:
@@ -14,6 +12,7 @@ class MazeGenerator:
         self.maze.setup_grid()
         self.name = "DEFAULT"
         self.size = size
+        self.directory = self.directory = "mazes/" + self.name + "-" + str(self.size) + "x" + str(self.size) + "-" + hex(random.randint(0, 500))
 
         self.matrix = self.maze.matrix
 
