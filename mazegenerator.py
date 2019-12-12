@@ -28,6 +28,9 @@ class MazeGenerator:
     def print_results(self):
         pass
 
+    def save_history(self, history_log):
+        pass
+
     @abstractmethod
     def maze_generator_factory(self, size: int):
         pass
