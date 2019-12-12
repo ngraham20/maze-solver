@@ -18,7 +18,15 @@ class MazeGenerator:
 
         self.duration = 0
 
-    def generate(self):
+    def analyze(self, count):
+        durations = []
+        for _ in range(count):
+            self.__init__(self.size)
+            self.generate(save_png=False)
+            durations.append(self.duration)
+        print(self.name + ":", str(durations))
+
+    def generate(self, history_log=None, save_png=True):
         pass
 
     def save_png(self):
@@ -26,7 +34,9 @@ class MazeGenerator:
                              str(float("%.5f" % self.duration)) + "s.png", "PNG")
 
     def print_results(self):
-        pass
+        print("%s: %s x %s" % (self.name, self.maze.size, self.maze.size))
+        print("--- %s seconds ---" % self.duration)
+        print("History saved to", self.directory)
 
     def save_history(self, history_log):
         pass
@@ -34,6 +44,3 @@ class MazeGenerator:
     @abstractmethod
     def maze_generator_factory(self, size: int):
         pass
-
-
-

@@ -32,7 +32,7 @@ class GenerateRB(MazeGenerator):
             pngfunctions.save_frame(self.maze.image, self.directory, frame)
             frame += 1
 
-    def generate(self, history_log=None):
+    def generate(self, history_log=None, save_png=True):
         start_time = time.time()
 
         the_stack = [(1, 1)]
@@ -70,8 +70,5 @@ class GenerateRB(MazeGenerator):
         if history_log is not None:
             history_log.append(("pop", (1, 1)))
             self.save_history(history_log)
-
-    def print_results(self):
-        print("RECURSIVE BACKTRACKER: %s x %s" % (self.maze.size, self.maze.size))
-        print("--- %s seconds ---" % self.duration)
-        print("History saved to", self.directory)
+        if save_png:
+            self.save_png()

@@ -30,7 +30,7 @@ class GenerateKruskal(MazeGenerator):
             pngfunctions.save_frame(self.maze.image, self.directory, frame)
             frame += 1
 
-    def generate(self, history_log=None):
+    def generate(self, history_log=None, save_png=True):
         start_time = time.time()
         ds = DisjointSet()
         edges = set()
@@ -61,7 +61,8 @@ class GenerateKruskal(MazeGenerator):
         self.duration = time.time() - start_time
         if history_log is not None:
             self.save_history(history_log)
-        self.save_png()
+        if save_png:
+            self.save_png()
 
     def maze_generator_factory(self, size: int):
         return GenerateKruskal(size)

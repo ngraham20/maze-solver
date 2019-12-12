@@ -23,10 +23,10 @@ heap for smallest/largest
 """
 
 
-class GeneratePrimms(MazeGenerator):
+class GeneratePrims(MazeGenerator):
     def __init__(self, size):
         super().__init__(size)
-        self.name = "Primms"
+        self.name = "Prims"
         self.directory = "mazes/" + self.name + "-" + str(self.size) + "x" + str(self.size) + "-" \
                          + hex(random.randint(0, 500))
 
@@ -43,7 +43,7 @@ class GeneratePrimms(MazeGenerator):
             pngfunctions.save_frame(self.maze.image, self.directory, frame)
             frame += 1
 
-    def generate(self, history_log=None):
+    def generate(self, history_log=None, save_png=True):
 
         start_time = time.time()
 
@@ -98,7 +98,8 @@ class GeneratePrimms(MazeGenerator):
         self.duration = time.time() - start_time
         if history_log is not None:
             self.save_history(history_log)
-        self.save_png()
+        if save_png:
+            self.save_png()
 
     def save_png(self):
         self.maze.image.save("mazes/" + self.name + "-" + str(self.size) + "x" + str(self.size) + "-" +
