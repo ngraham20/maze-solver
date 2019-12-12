@@ -20,9 +20,12 @@ class GenerateKruskal(MazeGenerator):
             action: Tuple
             if action[0] == "set_color":
                 # ds.find((action[1], action[2]))
-                self.maze.draw.point(action[1], (255, 255, 255))
+                self.maze.draw.point(action[1], (random.randrange(0, 256), random.randrange(0, 256), random.randrange(0, 256)))
             if action[0] == "bridge":  # (ax, ay) with (bx, by)
                 self.maze.draw.point(action[1], (255, 255, 255))
+            if action[0] == "merge":
+                self.maze.draw.point(action[1], (255, 255, 255))
+                self.maze.draw.point(action[2], (255, 255, 255))
 
             pngfunctions.save_frame(self.maze.image, self.directory, frame)
             frame += 1
@@ -52,6 +55,8 @@ class GenerateKruskal(MazeGenerator):
             if not ds.connected((ax, ay), (bx, by)):
                 ds.union((ax, ay), (bx, by))
                 self.maze.connect(self.matrix[ax][ay], self.matrix[bx][by], history_log)
+                if history_log is not None:
+                    history_log.append(("merge", (ax, ay), (bx, by)))
 
         self.duration = time.time() - start_time
         if history_log is not None:

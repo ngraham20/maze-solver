@@ -20,7 +20,7 @@ class GenerateRB(MazeGenerator):
         for action in history_log:
             action: Tuple
             if action[0] == "bridge":
-                self.maze.draw.point(action[1], (255, 255, 255))
+                self.maze.draw.point(action[1], (0, 0, 255))
                 if frame + 1 < len(history_log):
                     self.maze.draw.point(history_log[frame + 1][1], (0, 0, 255))
             if action[0] == "pop":
