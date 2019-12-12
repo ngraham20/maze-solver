@@ -32,7 +32,8 @@ class Maze(object):
                     if x % 2 == 1:
                         self.matrix[x][y] = Tree(x, y)  # add the node
 
-    def connect(self, node_a: Tree, node_b: Tree, history_log=None):
+    def connect(self, node_a: Tree, node_b: Tree, update_root=False, history_log=None):
+
         a_x = node_a.location[0]
         a_y = node_a.location[1]
 
@@ -71,6 +72,10 @@ class Maze(object):
                 history_log.append(("bridge", (b_x, b_y + 1)))
             else:
                 self.draw.point((b_x, b_y + 1), (255, 255, 255))  # bridge
+
+        if update_root:
+            node_a.update()
+            node_b.update()
 
     def show(self):
         self.image.show()

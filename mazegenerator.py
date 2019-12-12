@@ -22,7 +22,8 @@ class MazeGenerator:
         pass
 
     def save_png(self):
-        pass
+        self.maze.image.save("mazes/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" +
+                             str(float("%.5f" % self.duration)) + "s.png", "PNG")
 
     def print_results(self):
         pass
