@@ -8,9 +8,8 @@ from typing import Tuple
 class GenerateRB(MazeGenerator):
 
     def __init__(self, size):
-        super().__init__(size)
         self.name = "RB"
-        self.directory = "mazes/" + self.name + "-" + str(self.size) + "x" + str(self.size) + "-" + hex(random.randint(0, 500))
+        super().__init__(size)
 
     def maze_generator_factory(self, size: int):
         return GenerateRB(size)
@@ -70,10 +69,6 @@ class GenerateRB(MazeGenerator):
         if history_log is not None:
             history_log.append(("pop", (1, 1)))
             self.save_history(history_log)
-
-    def save_png(self):
-        self.maze.image.save("mazes/RB-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" +
-                             str(float("%.5f" % self.duration)) + "s.png", "PNG")
 
     def print_results(self):
         print("RECURSIVE BACKTRACKER: %s x %s" % (self.maze.size, self.maze.size))

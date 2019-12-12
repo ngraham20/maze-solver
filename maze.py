@@ -1,8 +1,6 @@
 from PIL import Image, ImageDraw
 from tree import Tree
 from typing import List
-import pngfunctions
-import random
 
 
 
@@ -38,6 +36,7 @@ class Maze(object):
                         self.matrix[x][y] = Tree(x, y)  # add the node
 
     def connect(self, node_a: Tree, node_b: Tree, history_log=None):
+
         a_x = node_a.location[0]
         a_y = node_a.location[1]
 

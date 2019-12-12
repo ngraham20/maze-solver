@@ -24,7 +24,8 @@ class SolveAStar(MazeSolver):
             node = min(the_open.values())
             the_open.pop(node.location, None)
             the_closed.add(node.location)
-            history_log.append(("closed", node.location))
+            if history_log is not None:
+                history_log.append(("closed", node.location))
             x, y = node.location
 
             if (x, y) == end:
@@ -61,7 +62,8 @@ class SolveAStar(MazeSolver):
                     child.f = int((child.g + child.h))  # (g + h)
                     if child not in the_open:
                         the_open[child.location] = child
-                        history_log.append(("open", child.location))
+                        if history_log is not None:
+                            history_log.append(("open", child.location))
                     else:
                         open_neighbor = the_open[child.location]
                         if child.g < open_neighbor.g:
@@ -69,7 +71,8 @@ class SolveAStar(MazeSolver):
                             open_neighbor.parent = child.parent
 
             the_closed.add(node.location)
-            history_log.append(("closed", node.location))
+            if history_log is not None:
+                history_log.append(("closed", node.location))
 
     def save_solution(self, solution, history_log=None):
         solution.reverse()

@@ -1,4 +1,6 @@
 from generaterb import GenerateRB
+from generateprimms import GeneratePrimms
+from generatekruskal import GenerateKruskal
 from solveastar import SolveAStar
 from solverb import SolveRB
 from os import listdir
@@ -41,7 +43,7 @@ class CLI:
 
     def generate_maze(self):
         while True:
-            options = ["Recursive Backtracking", "Back"]
+            options = ["Recursive Backtracking", "Primm's", "Kruskal's", "Back"]
             print("--------------------------------------------------")
             print("                  Generate a Maze                 ")
             print("- - - - - - - - - - - - - - - - - - - - - - - - - ")
@@ -58,6 +60,12 @@ class CLI:
             elif options[int(operation) - 1] == "Recursive Backtracking":
                 size = self.generation_settings("Recursive Backtracking")
                 generator = GenerateRB(size)
+            elif options[int(operation) - 1] == "Primm's":
+                size = self.generation_settings("Primm's")
+                generator = GeneratePrimms(size)
+            elif options[int(operation) - 1] == "Kruskal's":
+                size = self.generation_settings("Kruskal's")
+                generator = GenerateKruskal(size)
             print("- - - - - - - - - - - - - - - - - - - - - - - - - ")
             print("Would you like to save the process as well as the solution? (Y/N)")
             answer = None
@@ -137,12 +145,10 @@ class CLI:
             if int(user_input) == len(options):
                 break
             solver.import_png(path + options[int(user_input) - 1])
-            history = []
-            solution = solver.solve((1, 1), (solver.maze.size - 2, solver.maze.size - 2), history)
-            print("Solution Found.")
-            print("- - - - - - - - - - - - - - - - - - - - - - - - - ")
+            print("PNG imported")
             print("Would you like to save the process as well as the solution? (Y/N)")
             answer = None
+            history = None
             while answer is None:
                 answer = input(">>")
                 if answer.upper() != "Y" and answer.upper() != "N":
@@ -151,10 +157,11 @@ class CLI:
 
             if answer.upper() == "Y":
                 print("Saving solution and history.")
-                solver.save_solution(solution, history)
+                history = []
             else:
                 print("Saving solution.")
-                solver.save_solution(solution)
+            solution = solver.solve((1, 1), (solver.maze.size - 2, solver.maze.size - 2), history)
+            solver.save_solution(solution, history)
 
             print("To compile a gif of the solution, use")
             print("gifski --fps 60 -o out.gif *.png")

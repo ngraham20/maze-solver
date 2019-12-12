@@ -3,8 +3,6 @@ from maze import Maze
 import time
 import random
 from abc import ABC, abstractmethod
-import pngfunctions
-from typing import Tuple
 
 
 class MazeGenerator:
@@ -14,6 +12,7 @@ class MazeGenerator:
         self.maze.setup_grid()
         self.name = "DEFAULT"
         self.size = size
+        self.directory = self.directory = "mazes/" + self.name + "-" + str(self.size) + "x" + str(self.size) + "-" + hex(random.randint(0, 500))
 
         self.matrix = self.maze.matrix
 
@@ -23,9 +22,13 @@ class MazeGenerator:
         pass
 
     def save_png(self):
-        pass
+        self.maze.image.save("mazes/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" +
+                             str(float("%.5f" % self.duration)) + "s.png", "PNG")
 
     def print_results(self):
+        pass
+
+    def save_history(self, history_log):
         pass
 
     @abstractmethod
