@@ -47,7 +47,7 @@ class GeneratePrims(MazeGenerator):
 
         start_time = time.time()
 
-        the_frontier = {(1, 1)}  # set
+        the_frontier = {(1, 1)}
 
         while the_frontier:
 
@@ -59,7 +59,8 @@ class GeneratePrims(MazeGenerator):
 
             pool = []
 
-            # check all directions for new frontiers, add to frontier
+            # check all directions for neighbors. If the neighbor is visited,
+            # add it to a pool, otherwise mark it as a frontier node
             if y - 2 > 0:
                 if not self.matrix[x][y - 2].visited:  # check north
                     the_frontier.add((x, y - 2))
@@ -91,7 +92,7 @@ class GeneratePrims(MazeGenerator):
                 else:
                     pool.append((x + 2, y))
             
-            if len(pool) > 0:
+            if len(pool) > 0:  # pick a random node from the pool to connect the current node to the rest of the tree
                 next_node = random.choice(pool)
                 self.maze.connect(self.matrix[x][y], self.matrix[next_node[0]][next_node[1]], history_log)
 

@@ -3,12 +3,8 @@ from tree import Tree
 from typing import List
 
 
-
 class Maze(object):
 
-    #nodes have knowledge of eachother
-    #access node by xy val and know which are next to that node
-    #linking when have a path to eachother
     matrix: List[List[Tree]]
 
     def __init__(self, size: int = None):
@@ -19,16 +15,24 @@ class Maze(object):
             self.image = Image.new('RGB', (self.size, self.size))
             self.draw = ImageDraw.Draw(self.image, "RGB")
 
-            self.matrix = [[None] * self.size for _ in range(self.size)] #array of none size times over
-            #2D array of none type created
+            self.matrix = [[None] * self.size for _ in range(self.size)]
             
     def import_png(self, png: str):
+        """
+        Import a png to be solved by a subclass of MazeSolver
+        @param png: the PNG file string to import
+        @return:
+        """
         self.image = Image.open(png).convert('RGB')
         self.draw = ImageDraw.Draw(self.image, "RGB")
         self.size = self.image.size[0]
         self.matrix = [[None] * self.size for _ in range(self.size)]
 
     def setup_grid(self):
+        """
+        Set up the matrix with Tree nodes and None in order to keep the nodes organized in a NSEW style
+        @return:
+        """
         for y in range(self.size):  # loop row
             if y % 2 == 1:  # every other row
                 for x in range(self.size):  # every other pixel
@@ -36,6 +40,13 @@ class Maze(object):
                         self.matrix[x][y] = Tree(x, y)  # add the node
 
     def connect(self, node_a: Tree, node_b: Tree, history_log=None):
+        """
+        Connect two nodes together by joining them by an edge and by drawing a white pixel between them
+        @param node_a: Node A to be joined to node B
+        @param node_b: Node B to be joined to node A
+        @param history_log: an array of command tuples in the form (<command_string>, <param1>, <param2>, ...)
+        @return:
+        """
 
         a_x = node_a.location[0]
         a_y = node_a.location[1]

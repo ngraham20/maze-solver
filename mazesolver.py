@@ -16,13 +16,30 @@ class MazeSolver:
         self.name = "DEFAULT"
 
     def import_png(self, png: str):
+        """
+        Import a png to solve
+        @param png: the PNG file string to import
+        @return:
+        """
         self.maze.import_png(png)
         self.matrix = self.maze.matrix
 
     def solve(self, beginning, end, history_log: List = None):
+        """
+        Solve the imported Maze PNG
+        @param beginning: the start location
+        @param end: the target location
+        @param history_log: an array of command tuples in the form (<command_string>, <param1>, <param2>, ...)
+        @return:
+        """
         pass
 
     def generate_png(self, image):
+        """
+        Generate and save the PNG solution
+        @param image: the image object containing the PNG data
+        @return:
+        """
         dir_name = "./solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" + \
                    str(float("%.5f" % self.duration)) + "s.png"
         image.save(dir_name, "PNG")
@@ -30,6 +47,12 @@ class MazeSolver:
         print("Solution saved to", dir_name)
 
     def save_solution(self, solution, history_log=None):
+        """
+        Helper function to generate a solution, displayed as a gradient from blue (start) to red (finish)
+        @param solution: the list containing the solution (x, y) coordinates
+        @param history_log: an array of command tuples in the form (<command_string>, <param1>, <param2>, ...)
+        @return:
+        """
         dir_name = "solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" \
                    + str(float("%.5f" % self.duration)) + "s"
 
@@ -50,6 +73,11 @@ class MazeSolver:
             pngfunctions.save_frame(self.maze.image, dir_name, section + index + history_frames)
 
     def save_history(self, history_log):
+        """
+        Save the algorithmic process as well as the solution
+        @param history_log: an array of command tuples in the form (<command_string>, <param1>, <param2>, ...)
+        @return:
+        """
         dir_name = "solutions/" + self.name + "-" + str(self.maze.size) + "x" + str(self.maze.size) + "-" \
                    + str(float("%.5f" % self.duration)) + "s"
         index = 0

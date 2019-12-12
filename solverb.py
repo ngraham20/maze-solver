@@ -18,10 +18,12 @@ class SolveRB(MazeSolver):
         if history_log is not None:
             history_log.append(("push", beginning))
 
-        while end not in the_stack:
+        while end not in the_stack:  # while the stack is not empty
             x, y = the_stack.pop()
             if history_log is not None:
                 history_log.append(("pop", (x, y)))
+
+            # check all of this nodes neighbors and add them to a pool
             pool = []
 
             # check north
@@ -40,7 +42,7 @@ class SolveRB(MazeSolver):
             if x - 1 > 0 and self.maze.image.getpixel((x - 1, y)) == (255, 255, 255) and not (x - 1, y) in the_visited:
                 pool.append((x - 1, y))
 
-            if len(pool) > 0:
+            if len(pool) > 0:  # pick a random neighbor and travel to that one next
                 the_stack.append((x, y))
                 if history_log is not None:
                     history_log.append(("push", (x, y)))

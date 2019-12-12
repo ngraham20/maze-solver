@@ -38,10 +38,12 @@ class GenerateRB(MazeGenerator):
         the_stack = [(1, 1)]
         self.matrix[1][1].visited = True
 
-        while the_stack:
+        while the_stack:  # while there are things left on the stack
             x, y = the_stack.pop()
             if history_log is not None:
                 history_log.append(("pop", (x, y)))
+
+            # add every non-visited neighbor to a pool
             pool = []
             if y - 2 > 0 and not self.matrix[x][y - 2].visited:  # check north
                 pool.append((x, y - 2))
@@ -55,16 +57,12 @@ class GenerateRB(MazeGenerator):
             if x + 2 < len(self.matrix) and not self.matrix[x + 2][y].visited:  # check west
                 pool.append((x + 2, y))
 
-            if len(pool) > 0:
+            if len(pool) > 0:  # pick a random neighbor from the pool and connect it to the current node
                 the_stack.append((x, y))
-                # if history_log is not None:
-                #     history_log.append(("push", (x, y)))
                 next_node = random.choice(pool)
                 self.maze.connect(self.matrix[x][y], self.matrix[next_node[0]][next_node[1]], history_log)
                 self.matrix[next_node[0]][next_node[1]].visited = True
                 the_stack.append(next_node)
-                # if history_log is not None:
-                #     history_log.append(("push", (x, y)))
 
         self.duration = time.time() - start_time
         if history_log is not None:

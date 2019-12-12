@@ -1,5 +1,5 @@
 from generaterb import GenerateRB
-from generateprimms import GeneratePrimms
+from generateprims import GeneratePrims
 from generatekruskal import GenerateKruskal
 from solveastar import SolveAStar
 from solverb import SolveRB
@@ -62,7 +62,7 @@ class CLI:
                 generator = GenerateRB(size)
             elif options[int(operation) - 1] == "Primm's":
                 size = self.generation_settings("Primm's")
-                generator = GeneratePrimms(size)
+                generator = GeneratePrims(size)
             elif options[int(operation) - 1] == "Kruskal's":
                 size = self.generation_settings("Kruskal's")
                 generator = GenerateKruskal(size)
