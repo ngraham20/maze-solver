@@ -82,7 +82,6 @@ class CLI:
                 print("Saving solution.")
                 generator.generate()
             generator.print_results()
-            generator.save_png()
 
             print("To compile a gif of the solution, use")
             print("gifski --fps 60 -o out.gif *.png")
