@@ -20,7 +20,7 @@ class SolveAStar(MazeSolver):
         # add beginning to open set
         the_open[beginning] = Node(beginning)
 
-        while the_open:
+        while the_open:  # while there are still candidates and the solution has not been reached
             node = min(the_open.values())
             the_open.pop(node.location, None)
             the_closed.add(node.location)
@@ -51,6 +51,7 @@ class SolveAStar(MazeSolver):
             if x + 1 < self.maze.size and self.maze.image.getpixel((x + 1, y)) == (255, 255, 255):
                 successors.append(Node((x + 1, y), node))
 
+            # find the best candidate (shortest path from start + shortest manhattan distance to finish)
             for child in successors:
                 if child.location not in the_closed:
                     if child.parent:
