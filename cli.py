@@ -1,3 +1,4 @@
+#!./venv/bin/python
 from generaterb import GenerateRB
 from generateprims import GeneratePrims
 from generatekruskal import GenerateKruskal
