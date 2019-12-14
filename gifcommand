@@ -1,1 +1,0 @@
-ffmpeg -framerate 60 -i %d.png -f gif out.gif
