@@ -4,24 +4,6 @@ import random
 import pngfunctions
 from typing import Tuple
 
-# questions
-"""
-start at 1,1 in array 
-tree starts as n/2 by n/2 nodes
-jumping nodes is + 2
-give connect both nodes to remove wall --in maze.py
-set has const time removal - use for frontier nodes if rand pick
-if pick first/last one then use queue/stack
-    stacks and queues are both lists 
-    append treats like stack
-    enqueue or dequeue add front remove back
-    append/pop remove from same side
-    
-    no history
-    access nodes by location in matrix until nodes are linked in Tree
-heap for smallest/largest
-"""
-
 
 class GeneratePrims(MazeGenerator):
     def __init__(self, size):
