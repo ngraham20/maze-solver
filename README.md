@@ -1,5 +1,5 @@
 # Maze Algorithms Final Project
-The actual assignment was to study the difference between multiple different algorithms for a given problem, but I found it hard to explain how exactly the algorithms exactly worked, so I integrated a system to produce the choice history of which pixels were joined with each other. Here is the result:
+The actual assignment was to study the difference between multiple different algorithms for a given problem, but I found it hard to explain how exactly the algorithms exactly worked, so I integrated a system to produce the choice history of which pixels were joined with each other. Unfortunately, when increasing the size of the graphics for the README, they became blurred. The sanitization that GitHub does prevents the css from working. Regardless, here is the result:
 ### Kruskal's Algorithm on a 25x25 pixel grid
 <img src="examples/Kruskal-25x25.gif" width="300" style="image-rendering: pixelated;"/>
 
